@@ -164,12 +164,12 @@ public class StandardEditSession extends EditSession {
 
         Block target = player.getTargetBlock(null, QSConfig.maxReach);
         if (QSUtil.checkForSign(target)) {
-        	sign = (Sign) target;
+        	sign = (Sign) target.getState();
         } else {
             QSUtil.tell(player, "You aren't looking at a sign.");
             return true;
         }
-        if(!plugin.qs.canEdit(player, (Block) sign)){
+        if(!plugin.qs.canEdit(player, (Block) sign.getBlock())){
         	QSUtil.tell(player, "You don't have permission to edit that sign.");
         	return true;
         }

@@ -1,0 +1,33 @@
+name: QuickSign
+main: me.DDoS.Quicksign.QuickSign
+version: 0.8.1
+Authors: [_DDoS_, jb_aero]
+description: A fast, loggable sign-editor forked from the original QuickSign by _DDoS_
+softdepend: [WorldGuard, LogBlock]
+
+commands:
+   qs:
+      description: Shows QuickSign commands.
+      usage: /qs
+          
+permissions:
+  quicksign.use: 
+    description: use the plugin 
+  quicksign.allowics:
+    description: allow ICs
+  quicksign.fastsign:
+    description: Use fast sign command
+  quicksign.reloadconfig:
+    description: Reload the config
+  quicksign.fsnoinv:
+    description: Do not remove signs when using fast sign command
+  quicksign.wgmember:
+    description: Selection in WorldGuard regions where you are a member
+  quicksign.wgowner:
+    description: Selection in WorldGuard regions where you are a owner
+  quicksign.wgcanbuild:
+    description: Selection in WorldGuard regions where you can build
+  quicksign.freeuse:
+    description: Allows usage everywhere
+  quicksign.noreachlimit:
+    description: Allows to select signs at any distance

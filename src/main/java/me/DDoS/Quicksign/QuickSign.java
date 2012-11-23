@@ -46,6 +46,7 @@ public class QuickSign extends JavaPlugin {
         permissions = new PermissionsHandler(this).getPermissions();
         
         getServer().getPluginManager().registerEvents(new QSListener(this), this);
+        getServer().getPluginCommand("qs").setExecutor(this);
 
         checkForWorldGuard();
         checkForLogBlock();
