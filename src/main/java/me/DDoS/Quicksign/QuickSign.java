@@ -73,9 +73,16 @@ public class QuickSign extends JavaPlugin {
 
             if (args.length == 0) {
 
-                QSUtil.showHelp(sender);
+                qs.showHelp(sender);
                 return true;
 
+            }
+            
+            if (args.length >= 1 && args[0].equalsIgnoreCase("help")) {
+            	
+            	qs.showHelp(sender);
+            	return true;
+            	
             }
 
             if (args.length >= 1 && args[0].equalsIgnoreCase("rc")) {
@@ -92,6 +99,11 @@ public class QuickSign extends JavaPlugin {
                     return true;
 
                 }
+            }
+            
+            if (args.length >= 1 && args[0].equalsIgnoreCase("colors")) {
+            	qs.showColors(sender);
+            	return true;
             }
             
             if (!(sender instanceof Player)) {

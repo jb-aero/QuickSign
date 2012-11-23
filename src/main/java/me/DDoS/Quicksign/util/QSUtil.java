@@ -129,8 +129,29 @@ public class QSUtil {
 
 	}
 
-	public static void showHelp(CommandSender sender) {
-		// TODO Auto-generated method stub
-		
+	public void showHelp(CommandSender sender) {
+		sender.sendMessage(ChatColor.GRAY + "--------" + ChatColor.BLUE + "QuickSign commands" + ChatColor.GRAY + "--------");
+		sender.sendMessage(ChatColor.BLUE + "/qs colors" + ChatColor.GRAY + ": displays all available color codes");
+		sender.sendMessage(ChatColor.BLUE + "/qs <line#> <new text>" + ChatColor.GRAY + ": edit the line specified to the new text");
+		sender.sendMessage(ChatColor.BLUE + "/qs clear <line#>" + ChatColor.GRAY + ": removes text on the line specified");
+		sender.sendMessage(ChatColor.BLUE + "/qs copy" + ChatColor.GRAY + ": copies a sign to your virtual clipboard");
+		sender.sendMessage(ChatColor.BLUE + "/qs paste all" + ChatColor.GRAY + ": pastes your clipboard onto another sign");
+		sender.sendMessage(ChatColor.BLUE + "/qs paste <line from> <line to>" + ChatColor.GRAY + ": pastes from a line in your clipboard onto the chosen line");
+		sender.sendMessage(ChatColor.BLUE + "/qs rc" + ChatColor.GRAY + ": reloads the config");
+		sender.sendMessage(ChatColor.GRAY + "-------------------------------");
+	}
+	
+	public void showColors(CommandSender sender) {
+		sender.sendMessage(ChatColor.GRAY + "--------" + ChatColor.BLUE + "QuickSign commands" + ChatColor.GRAY + "--------");
+		sender.sendMessage(ChatColor.BLACK + "&0 " + ChatColor.DARK_BLUE + "&1 " + ChatColor.DARK_GREEN + "&2 "
+    			+ ChatColor.DARK_AQUA + "&3 " + ChatColor.DARK_RED + "&4 " + ChatColor.DARK_PURPLE + "&5 "
+    			+ ChatColor.GOLD + "&6 " + ChatColor.GRAY + "&7 ");
+    	sender.sendMessage(ChatColor.DARK_GRAY + "&8 " + ChatColor.BLUE + "&9 " + ChatColor.GREEN + "&a "
+    			+ ChatColor.AQUA + "&b " + ChatColor.RED + "&c " + ChatColor.LIGHT_PURPLE + "&d "
+    			+ ChatColor.YELLOW + "&e " + ChatColor.WHITE + "&f ");
+    	sender.sendMessage(ChatColor.BOLD + "&l " + ChatColor.RESET + ChatColor.STRIKETHROUGH + "&m "
+    			+ ChatColor.RESET + ChatColor.UNDERLINE + "&n " + ChatColor.RESET + ChatColor.ITALIC + "&o "
+    			+ ChatColor.RESET + "&r  " + ChatColor.MAGIC + "!D" + ChatColor.RESET + " = &k");
+    	sender.sendMessage(ChatColor.GRAY + "-------------------------------");
 	}
 }
