@@ -29,7 +29,7 @@ public class BlackList {
 
         if (config.getKeys(true).isEmpty()) {
 
-            config.set("BlackList", Arrays.asList("[qsccmd]", "[sell]"));
+            config.set("BlackList", Arrays.asList("[buy]", "[sell]", "[free]", "[trade]", "[private]", "[more users]"));
 
             try {
 
@@ -37,7 +37,7 @@ public class BlackList {
 
             } catch (IOException ex) {
 
-            	System.out.println("[QuickSign] Couldn't save black list: " + ex.getMessage());
+            	System.out.println("Couldn't save black list: " + ex.getMessage());
                 return;
 
             }
@@ -54,7 +54,7 @@ public class BlackList {
             }
         }
 
-        System.out.println("[QuickSign] Black list loaded");
+        System.out.println("[QuickSign] Blacklist loaded");
 
     }
 

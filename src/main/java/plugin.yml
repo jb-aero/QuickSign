@@ -1,8 +1,10 @@
 name: QuickSign
 main: me.DDoS.Quicksign.QuickSign
-version: 0.8.1
-Authors: [_DDoS_, jb_aero]
+version: 0.9.1
 description: A fast, loggable sign-editor forked from the original QuickSign by _DDoS_
+author: DDoS
+authors: [jb_aero]
+website: http://www.zeoldcraft.com
 softdepend: [WorldGuard, LogBlock]
 
 commands:

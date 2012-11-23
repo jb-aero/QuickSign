@@ -15,8 +15,6 @@ public class QSConfig {
 
     private final YamlConfiguration config = new YamlConfiguration();
     //
-    public static boolean chatSigns;
-    //
     public static int maxReach;
     //
     public static boolean useWG;
@@ -42,7 +40,7 @@ public class QSConfig {
 
             } catch (Exception e) {
 
-            	plugin.logi("[QuickSign] Error when creating config file.");
+            	plugin.logi("Error when creating config file.");
 
             }
         }
@@ -61,7 +59,7 @@ public class QSConfig {
             
         }
         
-        System.out.println("[QuickSign] Configuration loaded.");
+        plugin.logi("Configuration loaded.");
         
     }
 
@@ -95,10 +93,6 @@ public class QSConfig {
         if (!keys.contains("maxReach")) {
         	config.set("maxReach", 20);
         }
-
-        if (!keys.contains("chatSigns")) {
-            config.set("chatSigns", true);
-        }
         
         try {
         
@@ -116,7 +110,6 @@ public class QSConfig {
         useWG = config.getBoolean("useWorldGuard", true);
         useLogBlock = config.getBoolean("useLogBock", true);
         maxReach = config.getInt("maxReach", 20);
-        chatSigns = config.getBoolean("chatSigns", true);
 
     }
     
@@ -125,7 +118,6 @@ public class QSConfig {
         useWG = true;
         useLogBlock = true;
         maxReach = 20;
-        chatSigns = true;
         
         System.out.println("[QuickSign] Loaded defaults.");
         
@@ -134,12 +126,12 @@ public class QSConfig {
     private void convertProperties(QuickSign plugin) {
 
         if (!useWG) {
-        	System.out.println("[QuickSign] WorldGuard support disabled by config.");
+        	plugin.logi("WorldGuard support disabled by config.");
         }
 
         if (!useLogBlock) {
             plugin.setConsumer(null);
-            System.out.println("[QuickSign] LogBlock support disabled by config.");
+            plugin.logi("LogBlock support disabled by config.");
         }
     }
 }

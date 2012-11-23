@@ -53,7 +53,7 @@ public class QuickSign extends JavaPlugin {
 
         new QSConfig().setupConfig(this);
         
-        logi("[QuickSign] Plugin enabled. v" + getDescription().getVersion() + ", by DDoS");
+        logi("Plugin enabled. v" + getDescription().getVersion());
 
     }
 
@@ -61,7 +61,7 @@ public class QuickSign extends JavaPlugin {
     public void onDisable() {
 
     	sessions.clear();
-        logi("[QuickSign] Plugin disabled. v" + getDescription().getVersion() + ", by DDoS");
+        logi("Plugin disabled.");
 
     }
 
@@ -181,15 +181,15 @@ public class QuickSign extends JavaPlugin {
 
     private void checkForWorldGuard() {
 
-        Plugin plugin = getServer().getPluginManager().getPlugin("WorldGuard");
+        WorldGuardPlugin plugin = getWorldGuard();
 
-        if (plugin != null && plugin instanceof WorldGuardPlugin) {
+        if (plugin != null) {
 
-            logi("[QuickSign] WorldGuard detected. Features enabled.");
+            logi("WorldGuard detected. Features enabled.");
 
         } else {
 
-            logi("[QuickSign] No WorldGuard detected. Features disabled.");
+            logi("No WorldGuard detected. Features disabled.");
 
         }
     }
@@ -201,13 +201,13 @@ public class QuickSign extends JavaPlugin {
 
         if (plugin != null && plugin instanceof LogBlock) {
 
-            logi("[QuickSign] LogBlock detected. Features enabled.");
+            logi("LogBlock detected. Features enabled.");
             consumer = ((LogBlock) plugin).getConsumer();
             return;
 
         } else {
 
-            logi("[QuickSign] No LogBlock detected. Features disabled.");
+            logi("No LogBlock detected. Features disabled.");
 
         }
     }
