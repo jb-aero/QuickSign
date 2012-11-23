@@ -1,6 +1,5 @@
 package me.DDoS.Quicksign.command;
 
-import java.util.List;
 import me.DDoS.Quicksign.QuickSign;
 import me.DDoS.Quicksign.util.QSUtil;
 import org.bukkit.ChatColor;
@@ -19,14 +18,14 @@ public class InsertCommand extends QSCommand {
     private final boolean colors;
     private final String[] backups;
 
-    public InsertCommand(QuickSign plugin, List<Sign> signs, int line, int index, String text, boolean colors) {
+    public InsertCommand(QuickSign plugin, Sign sign, int line, int index, String text, boolean colors) {
 
-        super(plugin, signs);
+        super(plugin, sign);
         this.line = line;
         this.index = index;
         this.text = text;
         this.colors = colors;
-        backups = new String[signs.size()];
+        backups = new String[1];
 
     }
 
@@ -75,7 +74,7 @@ public class InsertCommand extends QSCommand {
         int i = 0;
         boolean someSignsIgnored = false;
 
-        for (Sign sign : signs) {
+//        for (Sign sign : signs) {
 
             backups[i] = sign.getLine(line);
 
@@ -94,19 +93,19 @@ public class InsertCommand extends QSCommand {
                 if (!plugin.getBlackList().allows(finalLine, player)) {
 
                     someSignsIgnored = true;
-                    continue;
+//                    continue;
 
-                }
+                } else {
 
                 sign.setLine(line, finalLine);
                 sign.update();
                 logChange(player, sign);
-
+                }
             }
 
             i++;
 
-        }
+//        }
 
         if (someSignsIgnored) {
 
@@ -124,14 +123,14 @@ public class InsertCommand extends QSCommand {
 
         int i = 0;
 
-        for (Sign sign : signs) {
+//        for (Sign sign : signs) {
 
             sign.setLine(line, backups[i]);
             sign.update();
             logChange(player, sign);
             i++;
 
-        }
+//        }
 
         QSUtil.tell(player, "Undo successful.");
 
@@ -140,7 +139,7 @@ public class InsertCommand extends QSCommand {
     @Override
     public void redo(Player player) {
 
-        for (Sign sign : signs) {
+//        for (Sign sign : signs) {
 
             if (sign.getLine(line).length() > 0) {
 
@@ -154,18 +153,16 @@ public class InsertCommand extends QSCommand {
 
                 String finalLine = new StringBuilder(sign.getLine(line)).insert(ti, text).toString();
 
-                if (!plugin.getBlackList().allows(finalLine, player)) {
+                if (plugin.getBlackList().allows(finalLine, player)) {
 
-                    continue;
+                	sign.setLine(line, finalLine);
+                    sign.update();
+                    logChange(player, sign);
 
                 }
 
-                sign.setLine(line, finalLine);
-                sign.update();
-                logChange(player, sign);
-
             }
-        }
+//        }
 
         QSUtil.tell(player, "Redo successful.");
 

@@ -37,7 +37,7 @@ public class BlackList {
 
             } catch (IOException ex) {
 
-                QuickSign.log.info("[QuickSign] Couldn't save black list: " + ex.getMessage());
+            	System.out.println("[QuickSign] Couldn't save black list: " + ex.getMessage());
                 return;
 
             }
@@ -54,7 +54,7 @@ public class BlackList {
             }
         }
 
-        QuickSign.log.info("[QuickSign] Black list loaded");
+        System.out.println("[QuickSign] Black list loaded");
 
     }
 

@@ -1,6 +1,5 @@
 package me.DDoS.Quicksign.command;
 
-import java.util.List;
 import me.DDoS.Quicksign.QuickSign;
 import me.DDoS.Quicksign.sign.SignState;
 import me.DDoS.Quicksign.util.QSUtil;
@@ -18,12 +17,12 @@ public class EditAllCommand extends QSCommand {
     private final boolean colors;
     private final SignState[] backups;
 
-    public EditAllCommand(QuickSign plugin, List<Sign> signs, String text, boolean colors) {
+    public EditAllCommand(QuickSign plugin, Sign sign, String text, boolean colors) {
 
-        super (plugin, signs);
+        super (plugin, sign);
         this.text = text;
         this.colors = colors;
-        backups = new SignState[signs.size()];
+        backups = new SignState[1];
 
     }
 
@@ -57,7 +56,7 @@ public class EditAllCommand extends QSCommand {
         
         int i = 0;
         
-        for (Sign sign : signs) {
+//        for (Sign sign : signs) {
 
             backups[i] = new SignState(sign);
             sign.setLine(0, text);
@@ -68,7 +67,7 @@ public class EditAllCommand extends QSCommand {
             logChange(player, sign);
             i++;
 
-        }
+//        }
 
         QSUtil.tell(player, "Edit successful.");
         return true;
@@ -80,7 +79,7 @@ public class EditAllCommand extends QSCommand {
 
         int i = 0;
 
-        for (Sign sign : signs) {
+//        for (Sign sign : signs) {
 
             String[] lines = backups[i].getLines();
             sign.setLine(0, lines[0]);
@@ -91,7 +90,7 @@ public class EditAllCommand extends QSCommand {
             logChange(player, sign);
             i++;
 
-        }
+//        }
         
         QSUtil.tell(player, "Undo successful.");
         
@@ -100,7 +99,7 @@ public class EditAllCommand extends QSCommand {
     @Override
     public void redo(Player player) {
 
-        for (Sign sign : signs) {
+//        for (Sign sign : signs) {
 
             sign.setLine(0, text);
             sign.setLine(1, text);
@@ -109,7 +108,7 @@ public class EditAllCommand extends QSCommand {
             sign.update();
             logChange(player, sign);
 
-        }
+//        }
 
         QSUtil.tell(player, "Redo successful.");
 

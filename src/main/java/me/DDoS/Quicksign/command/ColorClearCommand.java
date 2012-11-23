@@ -1,6 +1,5 @@
 package me.DDoS.Quicksign.command;
 
-import java.util.List;
 import me.DDoS.Quicksign.QuickSign;
 import me.DDoS.Quicksign.util.QSUtil;
 import org.bukkit.ChatColor;
@@ -16,11 +15,11 @@ public class ColorClearCommand extends QSCommand {
     private final int line;
     private final String[] backups;
 
-    public ColorClearCommand(QuickSign plugin, List<Sign> signs, int line) {
+    public ColorClearCommand(QuickSign plugin, Sign sign, int line) {
 
-        super (plugin, signs);
+        super (plugin, sign);
         this.line = line;
-        backups = new String[signs.size()];
+        backups = new String[1];
 
     }
 
@@ -36,7 +35,7 @@ public class ColorClearCommand extends QSCommand {
 
         int i = 0;
         
-        for (Sign sign : signs) {
+//        for (Sign sign : signs) {
 
             backups[i] = sign.getLine(line);
             sign.setLine(line, ChatColor.stripColor(sign.getLine(line)));
@@ -44,7 +43,7 @@ public class ColorClearCommand extends QSCommand {
             logChange(player, sign);
             i++;
 
-        }
+//        }
 
         QSUtil.tell(player, "Edit successful.");
         return true;
@@ -56,14 +55,14 @@ public class ColorClearCommand extends QSCommand {
 
         int i = 0;
 
-        for (Sign sign : signs) {
+//        for (Sign sign : signs) {
 
             sign.setLine(line, backups[i]);
             sign.update();
             logChange(player, sign);
             i++;
 
-        }
+//        }
         
         QSUtil.tell(player, "Undo successful.");
         
@@ -72,13 +71,13 @@ public class ColorClearCommand extends QSCommand {
     @Override
     public void redo(Player player) {
 
-        for (Sign sign : signs) {
+//        for (Sign sign : signs) {
 
             sign.setLine(line, ChatColor.stripColor(sign.getLine(line)));
             sign.update();
             logChange(player, sign);
 
-        }
+//        }
 
         QSUtil.tell(player, "Redo successful.");
 

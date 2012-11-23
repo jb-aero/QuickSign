@@ -1,6 +1,5 @@
 package me.DDoS.Quicksign.command;
 
-import java.util.List;
 import me.DDoS.Quicksign.QuickSign;
 import me.DDoS.Quicksign.util.QSUtil;
 import org.bukkit.ChatColor;
@@ -18,13 +17,13 @@ public class AppendCommand extends QSCommand {
     private final boolean colors;
     private final String[] backups;
 
-    public AppendCommand(QuickSign plugin, List<Sign> signs, int line, String text, boolean colors) {
+    public AppendCommand(QuickSign plugin, Sign sign, int line, String text, boolean colors) {
 
-        super (plugin, signs);
+        super (plugin, sign);
         this.line = line;
         this.text = text;
         this.colors = colors;
-        backups = new String[signs.size()];
+        backups = new String[1];
 
     }
 
@@ -66,7 +65,7 @@ public class AppendCommand extends QSCommand {
         int i = 0;
         boolean someSignsIgnored = false;
         
-        for (Sign sign : signs) {
+//        for (Sign sign : signs) {
             
             backups[i] = sign.getLine(line);
             String finalLine = sign.getLine(line) + " " + text;
@@ -74,16 +73,16 @@ public class AppendCommand extends QSCommand {
             if (!plugin.getBlackList().allows(finalLine, player)) {
                 
                 someSignsIgnored = true;
-                continue;
+//                continue;
                 
-            }
+            } else {
             
             sign.setLine(line, finalLine);
             sign.update();
             logChange(player, sign);
             i++;
-
-        }
+            }
+//        }
         
         if (someSignsIgnored) {
             
@@ -101,14 +100,14 @@ public class AppendCommand extends QSCommand {
 
         int i = 0;
 
-        for (Sign sign : signs) {
+//        for (Sign sign : signs) {
             
             sign.setLine(line, backups[i]);
             sign.update();
             logChange(player, sign);
             i++;
 
-        }
+//        }
 
         QSUtil.tell(player, "Undo successful.");
 
@@ -117,21 +116,20 @@ public class AppendCommand extends QSCommand {
     @Override
     public void redo(Player player) {
 
-        for (Sign sign : signs) {
+//        for (Sign sign : signs) {
             
             String finalLine = sign.getLine(line) + " " + text;
             
-            if (!plugin.getBlackList().allows(finalLine, player)) {
-                
-                continue;
+            if (plugin.getBlackList().allows(finalLine, player)) {
+
+                sign.setLine(line, finalLine);
+                sign.update();
+                logChange(player, sign);
                 
             }
             
-            sign.setLine(line, finalLine);
-            sign.update();
-            logChange(player, sign);
 
-        }
+//        }
 
         QSUtil.tell(player, "Redo successful.");
 

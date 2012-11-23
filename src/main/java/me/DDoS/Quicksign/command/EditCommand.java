@@ -1,6 +1,5 @@
 package me.DDoS.Quicksign.command;
 
-import java.util.List;
 import me.DDoS.Quicksign.QuickSign;
 import me.DDoS.Quicksign.util.QSUtil;
 import org.bukkit.ChatColor;
@@ -18,13 +17,13 @@ public class EditCommand extends QSCommand {
     private final boolean colors;
     private final String[] backups;
 
-    public EditCommand(QuickSign plugin, List<Sign> signs, int line, String text, boolean colors) {
+    public EditCommand(QuickSign plugin, Sign sign, int line, String text, boolean colors) {
 
-        super (plugin, signs);
+        super (plugin, sign);
         this.line = line;
         this.text = text;
         this.colors = colors;
-        backups = new String[signs.size()];
+        backups = new String[1];
 
     }
 
@@ -65,7 +64,7 @@ public class EditCommand extends QSCommand {
         
         int i = 0;
 
-        for (Sign sign : signs) {
+//        for (Sign sign : signs) {
 
             backups[i] = sign.getLine(line);
             sign.setLine(line, text);
@@ -73,7 +72,7 @@ public class EditCommand extends QSCommand {
             logChange(player, sign);
             i++;
 
-        }
+//        }
 
         QSUtil.tell(player, "Edit successful.");
         return true;
@@ -85,14 +84,14 @@ public class EditCommand extends QSCommand {
 
         int i = 0;
 
-        for (Sign sign : signs) {
+//        for (Sign sign : signs) {
 
             sign.setLine(line, backups[i]);
             sign.update();
             logChange(player, sign);
             i++;
 
-        }
+//        }
 
         QSUtil.tell(player, "Undo successful.");
 
@@ -101,13 +100,13 @@ public class EditCommand extends QSCommand {
     @Override
     public void redo(Player player) {
 
-        for (Sign sign : signs) {
+//        for (Sign sign : signs) {
 
             sign.setLine(line, text);
             sign.update();
             logChange(player, sign);
 
-        }
+//        }
 
         QSUtil.tell(player, "Redo successful.");
 

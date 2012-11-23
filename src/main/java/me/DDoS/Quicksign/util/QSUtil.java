@@ -2,15 +2,36 @@ package me.DDoS.Quicksign.util;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import me.DDoS.Quicksign.QuickSign;
+import me.DDoS.Quicksign.permission.Permission;
+
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
 /**
  *
  * @author DDoS
  */
 public class QSUtil {
+	
+	private QuickSign qs;
+	public QSUtil(QuickSign plugin){
+		this.qs = plugin;
+	}
+	
+	public boolean canEdit(Player player, Block block) {
+		WorldGuardPlugin wg = qs.getWorldGuard();
+		if(!QSConfig.useWG || wg == null || qs.hasPermissions(player, Permission.FREE_USE))
+			return true;
+		if(qs.hasPermissions(player, Permission.WG_CAN_BUILD) && wg.canBuild(player, block))
+			return true;
+		return false;
+	}
 
 	private static final Map<String, ChatColor> colorsByName = new HashMap<String, ChatColor>();
 
@@ -74,9 +95,9 @@ public class QSUtil {
 
 	}
 
-	public static void tell(Player player, String string) {
+	public static void tell(CommandSender sender, String string) {
 
-		player.sendMessage(ChatColor.BLUE + "[QuickSign]" + ChatColor.GRAY + " " + string);
+		sender.sendMessage(ChatColor.BLUE + "[QuickSign]" + ChatColor.GRAY + " " + string);
 
 	}
 
@@ -106,5 +127,10 @@ public class QSUtil {
 
 		return colorsByName.get(colorName.toLowerCase());
 
+	}
+
+	public static void showHelp(CommandSender sender) {
+		// TODO Auto-generated method stub
+		
 	}
 }

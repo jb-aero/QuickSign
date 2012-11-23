@@ -1,6 +1,5 @@
 package me.DDoS.Quicksign.command;
 
-import java.util.List;
 import me.DDoS.Quicksign.QuickSign;
 import me.DDoS.Quicksign.util.QSUtil;
 import org.bukkit.ChatColor;
@@ -19,14 +18,14 @@ public class ReplaceCommand extends QSCommand {
     private final boolean colors;
     private final String[] backups;
 
-    public ReplaceCommand(QuickSign plugin, List<Sign> signs, int line, String text1, String text2, boolean colors) {
+    public ReplaceCommand(QuickSign plugin, Sign sign, int line, String text1, String text2, boolean colors) {
 
-        super (plugin, signs);
+        super (plugin, sign);
         this.line = line;
         this.text1 = text1;
         this.text2 = text2;
         this.colors = colors;
-        backups = new String[signs.size()];
+        backups = new String[1];
 
     }
 
@@ -68,7 +67,7 @@ public class ReplaceCommand extends QSCommand {
         int i = 0;
         boolean someSignsIgnored = false;
         
-        for (Sign sign : signs) {
+//        for (Sign sign : signs) {
             
             backups[i] = sign.getLine(line);
             String finalLine = sign.getLine(line).replaceAll("\\Q" + text1 + "\\E", text2);
@@ -76,7 +75,7 @@ public class ReplaceCommand extends QSCommand {
             if (!plugin.getBlackList().allows(finalLine, player)) {
                 
                 someSignsIgnored = true;
-                continue;
+//                continue;
                 
             }
             
@@ -85,7 +84,7 @@ public class ReplaceCommand extends QSCommand {
             logChange(player, sign);
             i++;
 
-        }
+//        }
         
         if (someSignsIgnored) {
             
@@ -103,14 +102,14 @@ public class ReplaceCommand extends QSCommand {
 
         int i = 0;
 
-        for (Sign sign : signs) {
+//        for (Sign sign : signs) {
             
             sign.setLine(line, backups[i]);
             sign.update();
             logChange(player, sign);
             i++;
 
-        }
+//        }
 
         QSUtil.tell(player, "Undo successful.");
 
@@ -119,21 +118,18 @@ public class ReplaceCommand extends QSCommand {
     @Override
     public void redo(Player player) {
 
-        for (Sign sign : signs) {
+//        for (Sign sign : signs) {
             
             String finalLine = sign.getLine(line).replaceAll("\\Q" + text1 + "\\E", text2);
             
-            if (!plugin.getBlackList().allows(finalLine, player)) {
+            if (plugin.getBlackList().allows(finalLine, player)) {
                 
-                continue;
-                
-            }
-            
             sign.setLine(line, finalLine);
             sign.update();
             logChange(player, sign);
+            }
 
-        }
+//        }
 
         QSUtil.tell(player, "Redo successful.");
 

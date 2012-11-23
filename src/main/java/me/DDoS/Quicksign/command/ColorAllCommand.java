@@ -1,6 +1,5 @@
 package me.DDoS.Quicksign.command;
 
-import java.util.List;
 import me.DDoS.Quicksign.QuickSign;
 import me.DDoS.Quicksign.sign.SignState;
 import me.DDoS.Quicksign.util.QSUtil;
@@ -18,12 +17,12 @@ public class ColorAllCommand extends QSCommand {
     private final ChatColor color;
     private final SignState[] backups;
 
-    public ColorAllCommand(QuickSign plugin, List<Sign> signs, int index, String color) {
+    public ColorAllCommand(QuickSign plugin, Sign sign, int index, String color) {
 
-        super (plugin, signs);
+        super (plugin, sign);
         this.index = index;
         this.color = QSUtil.getColorFromName(color);
-        backups = new SignState[signs.size()];
+        backups = new SignState[1];
 
     }
 
@@ -46,7 +45,7 @@ public class ColorAllCommand extends QSCommand {
 
         int i = 0;
 
-        for (Sign sign : signs) {
+//        for (Sign sign : signs) {
 
             backups[i] = new SignState(sign);
             int ti = index;
@@ -109,7 +108,7 @@ public class ColorAllCommand extends QSCommand {
             logChange(player, sign);
             i++;
 
-        }
+//        }
 
         QSUtil.tell(player, "Edit successful.");
         return true;
@@ -120,7 +119,7 @@ public class ColorAllCommand extends QSCommand {
 
         int i = 0;
 
-        for (Sign sign : signs) {
+//        for (Sign sign : signs) {
 
             String[] lines = backups[i].getLines();
             sign.setLine(0, lines[0]);
@@ -131,7 +130,7 @@ public class ColorAllCommand extends QSCommand {
             logChange(player, sign);
             i++;
 
-        }
+//        }
 
         QSUtil.tell(player, "Undo successful.");
 
@@ -140,7 +139,7 @@ public class ColorAllCommand extends QSCommand {
     @Override
     public void redo(Player player) {
 
-        for (Sign sign : signs) {
+//        for (Sign sign : signs) {
 
             int ti = index;
 
@@ -201,7 +200,7 @@ public class ColorAllCommand extends QSCommand {
             sign.update();
             logChange(player, sign);
 
-        }
+//        }
 
         QSUtil.tell(player, "Redo successful.");
 

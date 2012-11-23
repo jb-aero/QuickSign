@@ -1,7 +1,5 @@
 package me.DDoS.Quicksign.command;
 
-import java.util.ArrayList;
-import java.util.List;
 import me.DDoS.Quicksign.QuickSign;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
@@ -13,12 +11,12 @@ import org.bukkit.entity.Player;
 public abstract class QSCommand {
 
     protected final QuickSign plugin;
-    protected final List<Sign> signs;
+    protected final Sign sign;
 
-    public QSCommand(QuickSign plugin, List<Sign> signs) {
+    public QSCommand(QuickSign plugin, Sign sign) {
 
         this.plugin = plugin;
-        this.signs = new ArrayList(signs);
+        this.sign = sign;
 
     }
 

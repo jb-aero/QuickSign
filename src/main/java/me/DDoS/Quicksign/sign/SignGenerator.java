@@ -13,6 +13,8 @@ import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+
 /**
  *
  * @author DDoS
@@ -20,10 +22,12 @@ import org.bukkit.inventory.ItemStack;
 public class SignGenerator {
 
     private final QuickSign plugin;
+    private WorldGuardPlugin wg;
 
     public SignGenerator(QuickSign plugin) {
 
         this.plugin = plugin;
+        this.wg = plugin.getWorldGuard();
 
     }
 
@@ -44,7 +48,7 @@ public class SignGenerator {
 
         Block block = player.getTargetBlock(null, QSConfig.maxReach);
 
-        if (!plugin.getSelectionHandler().checkForSelectionRights(player, block)) {
+        if (wg != null && !wg.canBuild(player, block)) {
 
             QSUtil.tell(player, "You do not own this block.");
             return;
@@ -123,14 +127,6 @@ public class SignGenerator {
 
         }
 
-        boolean colors = plugin.hasPermissions(player, Permission.COLOR_CMD);
-
-        if (!colors) {
-
-            QSUtil.tell(player, "You don't have permission for colors. They will not be applied.");
-
-        }
-
         boolean someLinesIgnored = false;
 
         for (int i = 0; i < i2; i++) {
@@ -143,15 +139,7 @@ public class SignGenerator {
 
             }
 
-            if (!colors) {
-
-                l = QSUtil.stripColors(l);
-
-            } else {
-
-                l = ChatColor.translateAlternateColorCodes('&', l);
-
-            }
+            l = ChatColor.translateAlternateColorCodes('&', l);
 
             if (!plugin.getBlackList().allows(l, player)) {
 

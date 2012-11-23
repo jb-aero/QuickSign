@@ -1,6 +1,5 @@
 package me.DDoS.Quicksign.command;
 
-import java.util.List;
 import me.DDoS.Quicksign.QuickSign;
 import me.DDoS.Quicksign.util.QSUtil;
 import org.bukkit.block.Sign;
@@ -15,11 +14,11 @@ public class ClearCommand extends QSCommand {
     private final int line;
     private final String[] backups;
 
-    public ClearCommand(QuickSign plugin, List<Sign> signs, int line) {
+    public ClearCommand(QuickSign plugin, Sign sign, int line) {
 
-        super (plugin, signs);
+        super (plugin, sign);
         this.line = line;
-        backups = new String[signs.size()];
+        backups = new String[1];
 
     }
 
@@ -35,7 +34,7 @@ public class ClearCommand extends QSCommand {
 
         int i = 0;
         
-        for (Sign sign : signs) {
+//        for (Sign sign : signs) {
 
             backups[i] = sign.getLine(line);
             sign.setLine(line, "");
@@ -43,7 +42,7 @@ public class ClearCommand extends QSCommand {
             logChange(player, sign);
             i++;
 
-        }
+//        }
 
         QSUtil.tell(player, "Edit successful.");
         return true;
@@ -55,14 +54,14 @@ public class ClearCommand extends QSCommand {
 
         int i = 0;
 
-        for (Sign sign : signs) {
+//        for (Sign sign : signs) {
 
             sign.setLine(line, backups[i]);
             sign.update();
             logChange(player, sign);
             i++;
 
-        }
+//        }
         
         QSUtil.tell(player, "Undo successful.");
         
@@ -71,13 +70,13 @@ public class ClearCommand extends QSCommand {
     @Override
     public void redo(Player player) {
 
-        for (Sign sign : signs) {
+//        for (Sign sign : signs) {
 
             sign.setLine(line, "");
             sign.update();
             logChange(player, sign);
 
-        }
+//        }
 
         QSUtil.tell(player, "Redo successful.");
 
